@@ -20,11 +20,11 @@ else
 	OBJDUMP = xtensa-lx106-elf-objdump
 endif
 
-BOOT?=none
-APP?=0
+BOOT?=new
+APP?=q
 SPI_SPEED?=40
 SPI_MODE?=QIO
-SPI_SIZE_MAP?=0
+SPI_SIZE_MAP?=w
 
 ifeq ($(BOOT), new)
     boot = new
@@ -332,11 +332,11 @@ clobber: $(SPECIAL_CLOBBER)
 	$(foreach d, $(SUBDIRS), $(MAKE) -C $(d) clobber;)
 	$(RM) -r $(ODIR)
 
-.subdirs:
-	@set -e; $(foreach d, $(SUBDIRS), $(MAKE) -C $(d);)
-
 #.subdirs:
-#	$(foreach d, $(SUBDIRS), $(MAKE) -C $(d))
+#	@set -e; $(foreach d, $(SUBDIRS), $(MAKE) -C $(d);)
+
+.subdirs:
+	$(foreach d, $(SUBDIRS), $(MAKE) -C $(d))
 
 ifneq ($(MAKECMDGOALS),clean)
 ifneq ($(MAKECMDGOALS),clobber)
